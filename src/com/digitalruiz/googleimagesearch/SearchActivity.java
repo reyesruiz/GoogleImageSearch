@@ -15,6 +15,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import android.widget.AdapterView;
@@ -25,11 +26,14 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class SearchActivity extends Activity {
+	//private static final String REQUEST_CODE = "REQUEST_CODE";
 	EditText etQuery;
 	GridView gvResults;
 	Button btSearch;
 	ArrayList<ImageResult> imageResults = new ArrayList<ImageResult>();
 	ImageResultArrayAdapter imageAdapter;
+	
+
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +61,19 @@ public class SearchActivity extends Activity {
         getMenuInflater().inflate(R.menu.search, menu);
         return true;
         }
+    
+    public void onAdvanzed(MenuItem menu){
+    	Intent advanzed = new Intent(getApplicationContext(), ImageAdvancedSearch.class);
+    	startActivity(advanzed);
+    	
+    }
+    
+   // @Override
+  //  protected void onActivityResult(int requestCode, int resultCode, Intent home){
+   // 	if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+   // 		Toast.makeText(this,  home.getExtras().getString("site"), Toast.LENGTH_LONG).show();
+   // 	}
+   // }
    
     public void setupViews(){
     	etQuery = (EditText) findViewById(R.id.etQuery);
@@ -64,6 +81,7 @@ public class SearchActivity extends Activity {
     	btSearch = (Button) findViewById(R.id.btSearch); 	
     }
     
+   
     public void onImageSearch(View v){
     	String query = etQuery.getText().toString();
     	Toast.makeText(this, "Searching for " + query, Toast.LENGTH_LONG).show();
@@ -92,5 +110,11 @@ public class SearchActivity extends Activity {
     	}); 
     	
   	  }
+    
+    
+
+    
+    
+
     
 }

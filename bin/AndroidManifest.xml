@@ -28,6 +28,10 @@
             android:name="com.digitalruiz.googleimagesearch.ImageDisplayActivity"
             android:label="@string/title_activity_image_display" >
         </activity>
+        <activity
+            android:name="com.digitalruiz.googleimagesearch.ImageAdvancedSearch"
+            android:label="@string/title_activity_image_advanced_search" >
+        </activity>
     </application>
 
 </manifest>

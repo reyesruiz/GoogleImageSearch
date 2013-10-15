@@ -7,5 +7,13 @@
     <string name="search">search</string>
     <string name="hintSearch">Serch something</string>
     <string name="title_activity_image_display">ImageDisplayActivity</string>
+    <string name="title_activity_image_advanced_search">ImageAdvancedSearch</string>
+    <string name="advanced_search_options">Advanced search options</string>
+    <string name="tvImageSize">Image Size</string>
+    <string name="Color_Filter">Color Filter</string>
+    <string name="ImageType">Image Type</string>
+    <string name="SiteFilter">Site filter</string>
+    <string name="EnterSite">Enter Site</string>
+    <string name="Done">Done</string>
 
 </resources>
