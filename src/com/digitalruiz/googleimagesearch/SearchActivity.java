@@ -32,6 +32,7 @@ public class SearchActivity extends Activity {
 	Button btSearch;
 	ArrayList<ImageResult> imageResults = new ArrayList<ImageResult>();
 	ImageResultArrayAdapter imageAdapter;
+	private int REQUEST_CODE;
 	
 
 	
@@ -64,16 +65,16 @@ public class SearchActivity extends Activity {
     
     public void onAdvanzed(MenuItem menu){
     	Intent advanzed = new Intent(getApplicationContext(), ImageAdvancedSearch.class);
-    	startActivity(advanzed);
+    	startActivityForResult(advanzed, REQUEST_CODE);
     	
     }
     
-   // @Override
-  //  protected void onActivityResult(int requestCode, int resultCode, Intent home){
-   // 	if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
-   // 		Toast.makeText(this,  home.getExtras().getString("site"), Toast.LENGTH_LONG).show();
-   // 	}
-   // }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent home){
+    	if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+    		Toast.makeText(this,  home.getExtras().getString("site"), Toast.LENGTH_LONG).show();
+    	}
+    }
    
     public void setupViews(){
     	etQuery = (EditText) findViewById(R.id.etQuery);
