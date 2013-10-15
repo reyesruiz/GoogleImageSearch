@@ -31,14 +31,17 @@ public class SearchActivity extends Activity {
 	GridView gvResults;
 	Button btSearch;
 	ArrayList<ImageResult> imageResults = new ArrayList<ImageResult>();
+	ArrayList<ImageResult> imageResults2 = new ArrayList<ImageResult>();
+	ArrayList<ImageResult> imageResults3 = new ArrayList<ImageResult>();
 	ImageResultArrayAdapter imageAdapter;
 	private int REQUEST_CODE;
 	String site;
 	String image_size;
 	String color_filter;
 	String image_type;
-	
-
+	int start;
+	int rsz;
+	int offset;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +75,8 @@ public class SearchActivity extends Activity {
     	startActivityForResult(advanzed, REQUEST_CODE);
     	
     }
+    
+    
     
     @Override
      protected void onActivityResult(int requestCode, int resultCode, Intent home){
@@ -109,6 +114,42 @@ public class SearchActivity extends Activity {
     	
     }
     
+    public void getClient(){
+      	String query = etQuery.getText().toString();
+        // 	Toast.makeText(this, "Searching for " + query, Toast.LENGTH_LONG).show();
+         	AsyncHttpClient client = new AsyncHttpClient();
+         	final String myurl = "https://ajax.googleapis.com/ajax/services/search/images?rsz=" + rsz +
+         			"&start=" + start + "&imgsz=" + Uri.encode(image_size) + "&imgcolor=" + Uri.encode(color_filter) + "&imgtype=" + Uri.encode(image_type) + "&as_sitesearch=" + Uri.encode(site) + "&v=1.0&q=" + Uri.encode(query);
+        // 	final String myurl2 = "https://ajax.googleapis.com/ajax/services/search/images?rsz=4&" +
+        // 			"start=" + 9 + "&imgsz=" + Uri.encode(image_size) + "&imgcolor=" + Uri.encode(color_filter) + "&imgtype=" + Uri.encode(image_type) + "&as_sitesearch=" + Uri.encode(site) + "&v=1.0&q=" + Uri.encode(query);
+         //	Toast.makeText(this, "url is " + myurl, Toast.LENGTH_LONG).show();
+        // 	Toast.makeText(this, "url is " + myurl2, Toast.LENGTH_LONG).show();
+//         	client.get("https://ajax.googleapis.com/ajax/services/search/images?rsz=8&" +
+//         			"start=" + 0 + "&v=1.0&q=" + Uri.encode(query),
+         	
+    	client.get(myurl,
+    				new JsonHttpResponseHandler() {
+    		@Override
+    		public void onSuccess(JSONObject response) {
+    			JSONArray imageJsonResults = null;
+    			try {
+    				imageJsonResults = response.getJSONObject("responseData").getJSONArray("results");
+    			//	imageResults.clear();
+    			//	imageResults.addAll(ImageResult.fromJSONArray(imageJsonResults));
+    				imageAdapter.addAll(ImageResult.fromJSONArray(imageJsonResults));
+    				Log.d("DEBUG", imageResults.toString());
+    				Log.d("DEBUG", myurl);
+    			} catch (JSONException e) {
+    				e.printStackTrace();
+    			}
+    			
+    		}
+    	}); 
+    	
+    	}
+
+    
+    
  	
     public void onImageSearch(View v){
     	if (site == null){
@@ -124,37 +165,42 @@ public class SearchActivity extends Activity {
     		image_type = "";
     	}
     	
-    	String query = etQuery.getText().toString();
-    	Toast.makeText(this, "Searching for " + query, Toast.LENGTH_LONG).show();
-    	AsyncHttpClient client = new AsyncHttpClient();
-    	final String myurl = "https://ajax.googleapis.com/ajax/services/search/images?rsz=8&" +
-    			"start=" + 0 + "&imgsz=" + Uri.encode(image_size) + "&imgcolor=" + Uri.encode(color_filter) + "&imgtype=" + Uri.encode(image_type) + "&as_sitesearch=" + Uri.encode(site) + "&v=1.0&q=" + Uri.encode(query);
-    	Toast.makeText(this, "url is " + myurl, Toast.LENGTH_LONG).show();
-//    	client.get("https://ajax.googleapis.com/ajax/services/search/images?rsz=8&" +
-//    			"start=" + 0 + "&v=1.0&q=" + Uri.encode(query),
-    	client.get(myurl,
-    				new JsonHttpResponseHandler() {
-    		@Override
-    		public void onSuccess(JSONObject response) {
-    			JSONArray imageJsonResults = null;
-    			try {
-    				imageJsonResults = response.getJSONObject("responseData").getJSONArray("results");
-    				imageResults.clear();
-    				imageAdapter.addAll(ImageResult.fromJSONArray(imageJsonResults));
-    				Log.d("DEBUG", imageResults.toString());
-    				Log.d("DEBUG", myurl);
-    			} catch (JSONException e) {
-    				e.printStackTrace();
-    			}
-    			
-    		}
-    	}); 
+    	imageResults.clear();
+    	
+    	rsz = 6;
+    	start = 0;
+    	rsz = 6;
+    	getClient();
+    	start = start + rsz;
+    	getClient();
     	
   	  }
     
     
-
+    public void onLoadMore(View v){
+    	if (site == null){
+    		site = "";
+    	}
+    	if (image_size == null){
+    		image_size = "";
+    	}
+    	if (color_filter == null){
+    		color_filter = "";
+    	}
+    	if (image_type == null){
+    		image_type = "";
+    	}
+    	
+    	imageResults.clear();
+    	
+    	rsz = 6;
+    	start = start + rsz;
+    	getClient(); 	
+    	start = start + rsz;
+    	getClient();
     
+  	  }
+   
     
 
     

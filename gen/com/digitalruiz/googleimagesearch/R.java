@@ -29,8 +29,9 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f09000e;
+        public static final int action_settings=0x7f09000f;
         public static final int btDone=0x7f090006;
+        public static final int btLoadMore=0x7f09000e;
         public static final int btSearch=0x7f09000c;
         public static final int etQuery=0x7f09000b;
         public static final int etSite=0x7f090005;
@@ -61,6 +62,7 @@ public final class R {
         public static final int Done=0x7f05000d;
         public static final int EnterSite=0x7f05000c;
         public static final int ImageType=0x7f05000a;
+        public static final int LoadMore=0x7f050011;
         public static final int SiteFilter=0x7f05000b;
         public static final int action_settings=0x7f050001;
         public static final int advanced_search_options=0x7f050007;
