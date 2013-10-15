@@ -33,6 +33,7 @@ public class SearchActivity extends Activity {
 	ArrayList<ImageResult> imageResults = new ArrayList<ImageResult>();
 	ImageResultArrayAdapter imageAdapter;
 	private int REQUEST_CODE;
+	String site;
 	
 
 	
@@ -69,26 +70,34 @@ public class SearchActivity extends Activity {
     	
     }
     
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent home){
-    	if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
-    		Toast.makeText(this,  home.getExtras().getString("site"), Toast.LENGTH_LONG).show();
-    	}
-    }
+ //   @Override
+  //   protected void onActivityResult(int requestCode, int resultCode, Intent home){
+  // 	if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+   // 		String site = home.getExtras().getString("site");
+   //		Toast.makeText(this,  site, Toast.LENGTH_LONG).show();
+   		
+    		
+  //  	}
+   // }
    
     public void setupViews(){
     	etQuery = (EditText) findViewById(R.id.etQuery);
     	gvResults  = (GridView) findViewById(R.id.gvResults);
-    	btSearch = (Button) findViewById(R.id.btSearch); 	
+    	btSearch = (Button) findViewById(R.id.btSearch); 
+    	site = getIntent().getStringExtra("site");
+    	if (site == null){
+    		site = "";
+    	}
+    	
     }
     
-   
+ 	
     public void onImageSearch(View v){
     	String query = etQuery.getText().toString();
     	Toast.makeText(this, "Searching for " + query, Toast.LENGTH_LONG).show();
     	AsyncHttpClient client = new AsyncHttpClient();
     	final String myurl = "https://ajax.googleapis.com/ajax/services/search/images?rsz=8&" +
-    			"start=" + 0 + "&v=1.0&q=" + Uri.encode(query);
+    			"start=" + 0 + "&as_sitesearch="+ Uri.encode(site) + "&v=1.0&q=" + Uri.encode(query);
     	Toast.makeText(this, "url is " + myurl, Toast.LENGTH_LONG).show();
 //    	client.get("https://ajax.googleapis.com/ajax/services/search/images?rsz=8&" +
 //    			"start=" + 0 + "&v=1.0&q=" + Uri.encode(query),

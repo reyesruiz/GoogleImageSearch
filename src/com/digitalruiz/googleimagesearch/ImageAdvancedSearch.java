@@ -13,6 +13,7 @@ public class ImageAdvancedSearch extends Activity {
 	
 	Button btDone;
 	EditText etSite;
+	Intent home;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,8 @@ public class ImageAdvancedSearch extends Activity {
 		Intent home = new Intent(getApplicationContext(), SearchActivity.class);
 		home.putExtra("site", site);
 		setResult(RESULT_OK, home);
-		finish();
+		startActivity(home);
+	//	finish();
 		
 	}
 
