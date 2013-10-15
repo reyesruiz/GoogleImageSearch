@@ -34,6 +34,9 @@ public class SearchActivity extends Activity {
 	ImageResultArrayAdapter imageAdapter;
 	private int REQUEST_CODE;
 	String site;
+	String image_size;
+	String color_filter;
+	String image_type;
 	
 
 	
@@ -70,34 +73,62 @@ public class SearchActivity extends Activity {
     	
     }
     
- //   @Override
-  //   protected void onActivityResult(int requestCode, int resultCode, Intent home){
-  // 	if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
-   // 		String site = home.getExtras().getString("site");
-   //		Toast.makeText(this,  site, Toast.LENGTH_LONG).show();
+    @Override
+     protected void onActivityResult(int requestCode, int resultCode, Intent home){
+   	if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+    		site = home.getExtras().getString("site");
+    		image_size = home.getExtras().getString("image_size");
+    		color_filter = home.getExtras().getString("color_filter");
+    		image_type = home.getExtras().getString("image_type");
+   		Toast.makeText(this,  site, Toast.LENGTH_LONG).show();
    		
     		
-  //  	}
-   // }
+   	}
+    }
    
     public void setupViews(){
     	etQuery = (EditText) findViewById(R.id.etQuery);
     	gvResults  = (GridView) findViewById(R.id.gvResults);
     	btSearch = (Button) findViewById(R.id.btSearch); 
-    	site = getIntent().getStringExtra("site");
+    /**	site = getIntent().getStringExtra("site");
     	if (site == null){
     		site = "";
     	}
+    	image_size = getIntent().getStringExtra("image_size");
+    	if (image_size == null){
+    		image_size = "";
+    	}
+    	color_filter = getIntent().getStringExtra("color_filter");
+    	if (color_filter == null){
+    		color_filter = "";
+    	}
+    	image_type = getIntent().getStringExtra("image_type");
+    	if (image_type == null){
+    		image_type = "";
+    	} */
     	
     }
     
  	
     public void onImageSearch(View v){
+    	if (site == null){
+    		site = "";
+    	}
+    	if (image_size == null){
+    		image_size = "";
+    	}
+    	if (color_filter == null){
+    		color_filter = "";
+    	}
+    	if (image_type == null){
+    		image_type = "";
+    	}
+    	
     	String query = etQuery.getText().toString();
     	Toast.makeText(this, "Searching for " + query, Toast.LENGTH_LONG).show();
     	AsyncHttpClient client = new AsyncHttpClient();
     	final String myurl = "https://ajax.googleapis.com/ajax/services/search/images?rsz=8&" +
-    			"start=" + 0 + "&as_sitesearch="+ Uri.encode(site) + "&v=1.0&q=" + Uri.encode(query);
+    			"start=" + 0 + "&imgsz=" + Uri.encode(image_size) + "&imgcolor=" + Uri.encode(color_filter) + "&imgtype=" + Uri.encode(image_type) + "&as_sitesearch=" + Uri.encode(site) + "&v=1.0&q=" + Uri.encode(query);
     	Toast.makeText(this, "url is " + myurl, Toast.LENGTH_LONG).show();
 //    	client.get("https://ajax.googleapis.com/ajax/services/search/images?rsz=8&" +
 //    			"start=" + 0 + "&v=1.0&q=" + Uri.encode(query),

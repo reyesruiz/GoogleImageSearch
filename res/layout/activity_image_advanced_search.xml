@@ -80,4 +80,30 @@
         android:onClick="onDone"
         android:text="@string/Done" />
 
+    <Spinner
+        android:id="@+id/spinerImageSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tvImageSize"
+        android:layout_toRightOf="@+id/tvImageSize"
+        android:entries="@array/image_size"
+        android:prompt="@string/text_image_size" />
+
+        <Spinner
+        android:id="@+id/spinerColorFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tvColorFilter"
+        android:layout_toRightOf="@+id/tvColorFilter"
+        android:entries="@array/color_filter"
+        android:prompt="@string/text_color_filter" />
+        
+            <Spinner
+        android:id="@+id/spinerImageType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tvImageType"
+        android:layout_toRightOf="@+id/tvImageType"
+        android:entries="@array/image_type"
+        android:prompt="@string/text_image_type" />
 </RelativeLayout>
